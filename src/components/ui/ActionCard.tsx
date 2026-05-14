@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Card } from "sketchbook-ui";
 
 type ActionCardProps = Readonly<{
   href: string;
@@ -10,10 +11,21 @@ export function ActionCard({ href, title, description }: ActionCardProps) {
   return (
     <Link
       href={href}
-      className="rounded-lg bg-white/65 p-6 shadow-sm ring-1 ring-[#dfe6dc] transition hover:bg-white"
+      className="block rounded-lg transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
     >
-      <p className="text-sm font-semibold text-stone-900">{title}</p>
-      <p className="mt-3 text-sm leading-6 text-stone-500">{description}</p>
+      <Card
+        className="introspect-action-card"
+        colors={{
+          bg: "#fffefa",
+          bgOverlay: "#f6f7f4",
+          stroke: "#b8aa96",
+          text: "#292524",
+        }}
+        typography={{ fontFamily: "var(--font-geist-sans)" }}
+      >
+        <p className="text-sm font-semibold text-stone-900">{title}</p>
+        <p className="mt-3 text-sm leading-6 text-stone-500">{description}</p>
+      </Card>
     </Link>
   );
 }

@@ -17,3 +17,40 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+.introspect-soft-card > .sketch-card__content {
+  min-height: auto;
+  padding: 2rem;
+}
+
+.introspect-action-card > .sketch-card__content,
+.introspect-compact-card > .sketch-card__content {
+  min-height: auto;
+  padding: 1.5rem;
+}
+
+.introspect-soft-card > .sketch-card__svg,
+.introspect-action-card > .sketch-card__svg {
+  opacity: 0.72;
+}
+
+.introspect-sketch-field .sketch-input-container,
+.introspect-sketch-field .sketch-textarea__wrapper {
+  width: 100%;
+  min-width: 0 !important;
+}
+
+.introspect-sketch-field .sketch-textarea__field {
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .introspect-soft-card > .sketch-card__content {
+    padding: 2.5rem;
+  }
+
+  .introspect-action-card > .sketch-card__content,
+  .introspect-compact-card > .sketch-card__content {
+    padding: 1.5rem;
+  }
+}
