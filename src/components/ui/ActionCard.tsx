@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Card } from "sketchbook-ui";
+
+import { surfaceStyles } from "@/lib/design";
 
 type ActionCardProps = Readonly<{
   href: string;
@@ -11,21 +12,12 @@ export function ActionCard({ href, title, description }: ActionCardProps) {
   return (
     <Link
       href={href}
-      className="block rounded-lg transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+      className={`${surfaceStyles.panel} group block p-5 transition hover:-translate-y-0.5 hover:bg-white/82 hover:shadow-[0_16px_40px_rgba(72,63,51,0.07)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9caf88]`}
     >
-      <Card
-        className="introspect-action-card"
-        colors={{
-          bg: "#fffefa",
-          bgOverlay: "#f6f7f4",
-          stroke: "#b8aa96",
-          text: "#292524",
-        }}
-        typography={{ fontFamily: "var(--font-geist-sans)" }}
-      >
-        <p className="text-sm font-semibold text-stone-900">{title}</p>
-        <p className="mt-3 text-sm leading-6 text-stone-500">{description}</p>
-      </Card>
+      <p className="text-sm font-semibold text-stone-800 transition group-hover:text-[#4f6348]">
+        {title}
+      </p>
+      <p className="mt-2 text-sm leading-6 text-stone-500">{description}</p>
     </Link>
   );
 }

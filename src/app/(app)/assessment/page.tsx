@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "sketchbook-ui";
 
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SoftCard } from "@/components/ui/SoftCard";
+import { buttonStyles, surfaceStyles } from "@/lib/design";
 import {
   type AssessmentDimension,
   dimensionDetails,
@@ -22,26 +22,6 @@ const dimensions: AssessmentDimension[] = [
   "relationshipPatterns",
   "direction",
 ];
-
-const sketchButtonColors = {
-  bg: "#fffefa",
-  bgOverlay: "#f1efe7",
-  stroke: "#9f927f",
-  text: "#3f3a34",
-};
-
-const sketchPrimaryButtonColors = {
-  bg: "#e4ecdf",
-  bgOverlay: "#d5e2cf",
-  stroke: "#6f8068",
-  text: "#263225",
-};
-
-const sketchButtonTypography = {
-  fontFamily: "var(--font-geist-sans)",
-  fontSize: "0.95rem",
-  fontWeight: 700,
-};
 
 function calculateScores(answers: Answers): DimensionScores {
   const totals = dimensions.reduce(
@@ -177,7 +157,7 @@ export default function AssessmentPage() {
             {topReflection.prompts.map((prompt) => (
               <div
                 key={prompt}
-                className="rounded-lg bg-white/65 p-4 text-sm leading-6 text-stone-600 ring-1 ring-[#dfe6dc]"
+                className={`${surfaceStyles.panel} p-4 text-sm leading-6 text-stone-600`}
               >
                 {prompt}
               </div>
@@ -186,7 +166,7 @@ export default function AssessmentPage() {
 
           <Link
             href="/journal"
-            className="mt-8 inline-flex rounded-lg bg-[#e4ecdf] px-5 py-3 text-sm font-semibold text-stone-800 ring-1 ring-[#b8c8b0] transition hover:bg-[#d8e5d1] focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
+            className={`mt-8 ${buttonStyles.primary}`}
           >
             Go to journal
           </Link>
@@ -205,13 +185,13 @@ export default function AssessmentPage() {
         description="This gentle check-in can help identify which area may be most useful to reflect on right now."
       />
 
-      <div className="rounded-lg bg-white/65 p-6 ring-1 ring-[#d7cdbc] sm:p-7">
-        <p className="text-xl font-semibold leading-8 text-stone-950">
+      <div className={`${surfaceStyles.subtle} p-5 sm:p-6`}>
+        <p className="text-lg font-semibold leading-8 text-[#332f2a] sm:text-xl">
           {question.text}
         </p>
       </div>
 
-      <div className="grid gap-3 sm:gap-4">
+      <div className="grid gap-2.5 sm:gap-3">
         {likertOptions.map((option) => {
           const isSelected = selectedAnswer === option.value;
 
@@ -221,18 +201,18 @@ export default function AssessmentPage() {
               type="button"
               onClick={() => selectAnswer(option.value)}
               aria-pressed={isSelected}
-              className={`flex min-h-16 items-center justify-between gap-4 rounded-lg p-4 text-left shadow-sm ring-1 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 ${
+              className={`flex min-h-14 items-center justify-between gap-4 rounded-xl border px-4 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9caf88] ${
                 isSelected
-                  ? "bg-[#e4ecdf] text-stone-950 ring-[#8fa184]"
-                  : "bg-white/70 text-stone-700 ring-[#d7cdbc] hover:bg-white hover:text-stone-950"
+                  ? "border-[#9caf88] bg-[#e9efe4] text-[#2f3a2b]"
+                  : "border-stone-200 bg-white/64 text-stone-600 hover:bg-white hover:text-stone-800"
               }`}
             >
               <span className="text-sm font-semibold">{option.label}</span>
               <span
                 className={`flex size-8 shrink-0 items-center justify-center rounded-full text-sm ${
                   isSelected
-                    ? "bg-white text-stone-900 ring-1 ring-[#8fa184]"
-                    : "bg-[#f6f7f4] text-stone-500"
+                    ? "bg-white/85 text-[#4f6348]"
+                    : "bg-[#f7f4ee] text-stone-500"
                 }`}
               >
                 {option.value}
@@ -242,28 +222,24 @@ export default function AssessmentPage() {
         })}
       </div>
 
-      <div className="flex flex-col-reverse gap-3 border-t border-[#d7cdbc] pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <Button
+      <div className="flex flex-col-reverse gap-3 border-t border-stone-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <button
           type="button"
           onClick={goBack}
           disabled={currentQuestionIndex === 0}
-          size="sm"
-          colors={sketchButtonColors}
-          typography={sketchButtonTypography}
+          className={buttonStyles.secondary}
         >
           Back
-        </Button>
+        </button>
 
-        <Button
+        <button
           type="button"
           onClick={goNext}
           disabled={!selectedAnswer}
-          size="sm"
-          colors={sketchPrimaryButtonColors}
-          typography={sketchButtonTypography}
+          className={buttonStyles.primary}
         >
           {isFinalQuestion ? "See reflection" : "Next"}
-        </Button>
+        </button>
       </div>
     </SoftCard>
   );

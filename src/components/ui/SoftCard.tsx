@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { Card } from "sketchbook-ui";
+
+import { surfaceStyles } from "@/lib/design";
 
 type SoftCardProps = Readonly<{
   children: ReactNode;
@@ -12,19 +13,16 @@ export function SoftCard({
   className = "",
   variant = "paper",
 }: SoftCardProps) {
+  const variantClassName =
+    variant === "sticky"
+      ? "bg-[#fff8dc]/80"
+      : variant === "notebook"
+        ? "bg-[#fffefa]/82"
+        : "";
+
   return (
-    <Card
-      variant={variant}
-      className={`introspect-soft-card ${className}`}
-      colors={{
-        bg: "#fffefa",
-        bgOverlay: "#f6f7f4",
-        stroke: "#b8aa96",
-        text: "#292524",
-      }}
-      typography={{ fontFamily: "var(--font-geist-sans)" }}
-    >
+    <section className={`${surfaceStyles.card} ${variantClassName} p-6 sm:p-8 ${className}`}>
       {children}
-    </Card>
+    </section>
   );
 }

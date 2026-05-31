@@ -4,7 +4,7 @@ import { SoftCard } from "@/components/ui/SoftCard";
 
 export default function DashboardPage() {
   return (
-    <section className="space-y-8">
+    <section className="space-y-6">
       <SoftCard>
         <PageHeader
           eyebrow="Dashboard"
@@ -13,7 +13,7 @@ export default function DashboardPage() {
         />
       </SoftCard>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         <ActionCard
           href="/assessment"
           title="Continue assessment"

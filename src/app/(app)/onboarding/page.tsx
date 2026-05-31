@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SoftCard } from "@/components/ui/SoftCard";
+import { buttonStyles } from "@/lib/design";
 
 const onboardingSteps = [
   {
@@ -101,7 +102,7 @@ export default function OnboardingPage() {
 
           <Link
             href="/dashboard"
-            className="inline-flex rounded-lg bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700"
+            className={buttonStyles.primary}
           >
             Go to dashboard
           </Link>
@@ -128,10 +129,10 @@ export default function OnboardingPage() {
               type="button"
               onClick={() => selectOption(option)}
               aria-pressed={isSelected}
-              className={`min-h-24 rounded-lg p-5 text-left text-sm font-medium leading-6 shadow-sm ring-1 transition ${
+              className={`min-h-20 rounded-xl border p-5 text-left text-sm font-medium leading-6 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9caf88] ${
                 isSelected
-                  ? "bg-stone-900 text-white ring-stone-900"
-                  : "bg-white/65 text-stone-700 ring-[#dfe6dc] hover:bg-white hover:text-stone-950"
+                  ? "border-[#9caf88] bg-[#e9efe4] text-[#2f3a2b]"
+                  : "border-stone-200 bg-white/64 text-stone-600 hover:bg-white hover:text-stone-800"
               }`}
             >
               {option}
@@ -140,12 +141,12 @@ export default function OnboardingPage() {
         })}
       </div>
 
-      <div className="flex flex-col-reverse gap-3 border-t border-[#dfe6dc] pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col-reverse gap-3 border-t border-stone-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="button"
           onClick={goBack}
           disabled={currentStep === 0}
-          className="rounded-lg px-5 py-3 text-sm font-semibold text-stone-600 transition hover:bg-white/70 disabled:cursor-not-allowed disabled:opacity-40"
+          className={buttonStyles.secondary}
         >
           Back
         </button>
@@ -154,7 +155,7 @@ export default function OnboardingPage() {
           type="button"
           onClick={continueOnboarding}
           disabled={!selectedOption}
-          className="rounded-lg bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-stone-300"
+          className={buttonStyles.primary}
         >
           {isFinalStep ? "Finish onboarding" : "Continue"}
         </button>

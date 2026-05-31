@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SoftCard } from "@/components/ui/SoftCard";
+import { buttonStyles, surfaceStyles } from "@/lib/design";
 import {
   type AssessmentDimension,
   dimensionDetails,
@@ -231,7 +232,7 @@ export default function InsightsPage() {
             </p>
             <Link
               href="/assessment"
-              className="inline-flex rounded-lg bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700"
+              className={buttonStyles.primary}
             >
               Go to assessment
             </Link>
@@ -249,7 +250,7 @@ export default function InsightsPage() {
               {moodCounts.map((mood) => (
                 <div
                   key={mood.label}
-                  className="flex items-center justify-between rounded-lg bg-white/70 p-4 text-sm shadow-sm ring-1 ring-[#d7cdbc]"
+                  className={`${surfaceStyles.panel} flex items-center justify-between p-4 text-sm`}
                 >
                   <span className="font-medium capitalize text-stone-700">
                     {mood.label}
@@ -274,7 +275,7 @@ export default function InsightsPage() {
               {tagCounts.map((tag) => (
                 <span
                   key={tag.label}
-                  className="rounded-full bg-white/70 px-4 py-2 text-sm text-stone-600 shadow-sm ring-1 ring-[#d7cdbc]"
+                  className="rounded-full border border-stone-200 bg-white/70 px-4 py-2 text-sm text-stone-600"
                 >
                   {tag.label} ({tag.count})
                 </span>
@@ -297,7 +298,7 @@ export default function InsightsPage() {
           {journalEntries.length === 0 ? (
             <Link
               href="/journal"
-              className="inline-flex rounded-lg bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-700"
+              className={buttonStyles.primary}
             >
               Write in journal
             </Link>
@@ -309,7 +310,7 @@ export default function InsightsPage() {
             {recentEntries.map((entry) => (
               <article
                 key={entry.id}
-                className="rounded-lg bg-white/70 p-5 shadow-sm ring-1 ring-[#d7cdbc]"
+                className={`${surfaceStyles.panel} p-5`}
               >
                 <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase text-stone-400">
                   <time dateTime={entry.createdAt}>
@@ -330,7 +331,7 @@ export default function InsightsPage() {
                     {entry.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-[#f6f7f4] px-3 py-1 text-xs text-stone-500 ring-1 ring-[#d7cdbc]"
+                        className="rounded-full border border-stone-200 bg-[#f7f4ee] px-3 py-1 text-xs text-stone-500"
                       >
                         {tag}
                       </span>
