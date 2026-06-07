@@ -6,7 +6,7 @@ import { ToastContainer, useToast } from "sketchbook-ui";
 import type { AssessmentDimension } from "@/data/reflectionPatternAssessment";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SoftCard } from "@/components/ui/SoftCard";
-import { buttonStyles, chipStyles, surfaceStyles } from "@/lib/design";
+import { buttonStyles, chipStyles, moodColors, surfaceStyles } from "@/lib/design";
 import {
   type JournalEntry,
   type JournalStorageReason,
@@ -80,11 +80,11 @@ function getAssessmentSnapshot() {
 }
 
 function formatEntryDate(value: string) {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(value));
+  const date = new Date(value);
+  const dd = String(date.getDate()).padStart(2, "0");
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const yyyy = date.getFullYear();
+  return `${dd}.${mm}.${yyyy}`;
 }
 
 export default function JournalPage() {
@@ -97,6 +97,7 @@ export default function JournalPage() {
   const [content, setContent] = useState("");
   const [tagsInput, setTagsInput] = useState("");
   const [hasTouchedContent, setHasTouchedContent] = useState(false);
+  const [isTextareaFocused, setIsTextareaFocused] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [storageMode, setStorageMode] = useState<JournalStorageMode>("local");
@@ -265,6 +266,7 @@ export default function JournalPage() {
             >
               {moodOptions.map((moodOption) => {
                 const isSelected = mood === moodOption;
+                const colors = moodColors[moodOption];
 
                 return (
                   <button
@@ -272,10 +274,17 @@ export default function JournalPage() {
                     type="button"
                     onClick={() => setMood(moodOption)}
                     aria-pressed={isSelected}
+                    style={
+                      isSelected && colors
+                        ? {
+                            borderColor: colors.border,
+                            backgroundColor: colors.bg,
+                            color: colors.text,
+                          }
+                        : undefined
+                    }
                     className={`${chipStyles.base} capitalize ${
-                      isSelected
-                        ? chipStyles.selected
-                        : chipStyles.unselected
+                      isSelected ? "border" : chipStyles.unselected
                     }`}
                   >
                     {moodOption}
@@ -292,14 +301,27 @@ export default function JournalPage() {
             >
               Reflection
             </label>
-            <textarea
-              id="journal-content"
-              value={content}
-              onChange={(event) => setContent(event.target.value)}
-              onBlur={() => setHasTouchedContent(true)}
-              placeholder="Write what feels useful to notice..."
-              className="introspect-field introspect-textarea mt-2 px-4 py-3 text-sm leading-7"
-            />
+            <div className="relative mt-2">
+              <textarea
+                id="journal-content"
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
+                onFocus={() => setIsTextareaFocused(true)}
+                onBlur={() => {
+                  setHasTouchedContent(true);
+                  setIsTextareaFocused(false);
+                }}
+                className="introspect-field introspect-textarea px-4 py-3 text-sm leading-7"
+              />
+              {!content && !isTextareaFocused && (
+                <span
+                  className="blink-cursor pointer-events-none absolute left-4 top-3 font-mono text-sm text-stone-400"
+                  aria-hidden="true"
+                >
+                  ▍
+                </span>
+              )}
+            </div>
             {hasTouchedContent && !canSave ? (
               <p className="mt-2 text-sm text-stone-500">
                 Add a few words before saving this reflection.
@@ -363,11 +385,12 @@ export default function JournalPage() {
                 key={entry.id}
                 className={`${surfaceStyles.panel} p-5`}
               >
-                <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase text-stone-400">
+                <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-stone-400">
                   <time dateTime={entry.created_at}>
                     {formatEntryDate(entry.created_at)}
                   </time>
-                  <span>{entry.mood}</span>
+                  <span aria-hidden>—</span>
+                  <span className="capitalize">{entry.mood}</span>
                 </div>
                 <p className="mt-3 text-sm font-semibold leading-6 text-stone-900">
                   {entry.prompt}
@@ -404,7 +427,7 @@ export default function JournalPage() {
         onDismiss={dismissToast}
         position="bottom-right"
         size="sm"
-        typography={{ fontFamily: "var(--font-geist-sans)", fontSize: "0.9rem" }}
+        typography={{ fontFamily: "var(--font-nunito)", fontSize: "0.9rem" }}
         colors={{
           success: {
             bg: "#f6fbf3",

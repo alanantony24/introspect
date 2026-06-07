@@ -48,10 +48,10 @@ async function AuthStatus() {
 
   return (
     <div className="rounded-xl border border-stone-200 bg-white/55 p-4">
-      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-stone-400">
+      <p className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.1em] text-stone-400">
         Signed in
       </p>
-      <p className="mt-2 truncate text-sm text-stone-700">{email}</p>
+      <p className="mt-2 truncate font-mono text-xs text-stone-600">{email}</p>
       <form action={signOut} className="mt-3">
         <button
           type="submit"
@@ -73,10 +73,10 @@ export async function AppShell({
         <aside className="hidden w-72 shrink-0 px-5 py-6 md:flex md:flex-col">
           <div className="flex min-h-full flex-col rounded-[1.5rem] border border-white/65 bg-white/38 p-5 shadow-[0_18px_70px_rgba(72,63,51,0.06)] backdrop-blur">
           <Link href="/dashboard" className="group rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9caf88]">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-stone-400">
+            <p className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.14em] text-stone-400">
               Introspect
             </p>
-            <h1 className="mt-3 text-xl font-semibold leading-7 text-[#332f2a]">
+            <h1 className="mt-2 font-serif text-xl italic leading-7 text-[#473623]">
               A quiet place to notice patterns.
             </h1>
           </Link>
@@ -102,7 +102,7 @@ export async function AppShell({
         </aside>
 
         <main className="flex-1 px-5 pb-28 pt-5 sm:px-8 md:px-10 md:py-8">
-          <div className="mx-auto w-full max-w-4xl">
+          <div className="mx-auto w-full max-w-4xl page-enter">
             <div className="mb-5 md:hidden">
               <AuthStatus />
             </div>

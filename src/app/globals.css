@@ -6,19 +6,38 @@
   --muted-foreground: #746b61;
   --soft-border: #e4ddd2;
   --focus-ring: #9caf88;
+
+  /* Extended palette */
+  --espresso: #473623;
+  --honey: #f1deac;
+  --blush: #f5c8cb;
+  --mint: #7fd1ae;
+  --sky-soft: #aadaf0;
+  --lavender: #d6d3f9;
+  --peach: #ffc5a6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-nunito);
+  --font-serif: var(--font-dm-serif-display);
+  --font-mono: var(--font-ibm-plex-mono);
+
+  /* Palette tokens */
+  --color-espresso: var(--espresso);
+  --color-honey: var(--honey);
+  --color-blush: var(--blush);
+  --color-mint: var(--mint);
+  --color-sky-soft: var(--sky-soft);
+  --color-lavender: var(--lavender);
+  --color-peach: var(--peach);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-nunito), system-ui, Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
@@ -54,7 +73,7 @@ textarea {
 }
 
 .introspect-field::placeholder {
-  color: #a49a8e;
+  color: #c2b8ae;
 }
 
 .introspect-field:focus {
@@ -67,4 +86,53 @@ textarea {
 .introspect-textarea {
   min-height: 14rem;
   resize: vertical;
+  line-height: 1.75rem;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(1.75rem - 1px),
+    #ece6de calc(1.75rem - 1px),
+    #ece6de 1.75rem
+  );
+  background-size: 100% 1.75rem;
+  background-attachment: local;
+  padding-top: 0.875rem;
+}
+
+/* Dot-grid utility for dashboard and special surfaces */
+.dot-grid-bg {
+  background-image: radial-gradient(circle, #b8afa4 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Ruled-line overlay for notebook-variant SoftCards */
+.notebook-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(1.75rem - 1px),
+    #ece6de calc(1.75rem - 1px),
+    #ece6de 1.75rem
+  );
+  background-size: 100% 1.75rem;
+}
+
+/* Blinking cursor for journal empty state */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.blink-cursor {
+  animation: blink 1.1s step-end infinite;
+}
+
+/* Page fade-in */
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter {
+  animation: page-fade-in 220ms ease both;
 }

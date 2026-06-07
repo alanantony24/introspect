@@ -115,11 +115,11 @@ function getTopCounts(items: string[], limit: number) {
 }
 
 function formatDate(value: string) {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(value));
+  const date = new Date(value);
+  const dd = String(date.getDate()).padStart(2, "0");
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const yyyy = date.getFullYear();
+  return `${dd}.${mm}.${yyyy}`;
 }
 
 export default function InsightsPage() {
@@ -173,38 +173,38 @@ export default function InsightsPage() {
       </SoftCard>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <SoftCard className="p-6 sm:p-6">
-          <p className="text-sm font-medium text-stone-400">
+        <SoftCard className="border-l-4 border-l-[#f1deac] p-6 sm:p-6">
+          <p className="font-mono text-xs font-medium uppercase tracking-wide text-stone-400">
             Reflection area
           </p>
-          <p className="mt-3 text-2xl font-semibold text-stone-950">
+          <p className="mt-3 font-serif text-2xl italic text-stone-950">
             {assessmentFocus?.label ?? "Not yet"}
           </p>
         </SoftCard>
 
-        <SoftCard className="p-6 sm:p-6">
-          <p className="text-sm font-medium text-stone-400">
+        <SoftCard className="border-l-4 border-l-[#aadaf0] p-6 sm:p-6">
+          <p className="font-mono text-xs font-medium uppercase tracking-wide text-stone-400">
             Journal entries
           </p>
-          <p className="mt-3 text-2xl font-semibold text-stone-950">
+          <p className="mt-3 font-serif text-2xl italic text-stone-950">
             {journalEntries.length}
           </p>
         </SoftCard>
 
-        <SoftCard className="p-6 sm:p-6">
-          <p className="text-sm font-medium text-stone-400">
+        <SoftCard className="border-l-4 border-l-[#7fd1ae] p-6 sm:p-6">
+          <p className="font-mono text-xs font-medium uppercase tracking-wide text-stone-400">
             Most recent mood
           </p>
-          <p className="mt-3 text-2xl font-semibold capitalize text-stone-950">
+          <p className="mt-3 font-serif text-2xl italic capitalize text-stone-950">
             {mostRecentMood}
           </p>
         </SoftCard>
 
-        <SoftCard className="p-6 sm:p-6">
-          <p className="text-sm font-medium text-stone-400">
+        <SoftCard className="border-l-4 border-l-[#d6d3f9] p-6 sm:p-6">
+          <p className="font-mono text-xs font-medium uppercase tracking-wide text-stone-400">
             Most common tag
           </p>
-          <p className="mt-3 text-2xl font-semibold text-stone-950">
+          <p className="mt-3 font-serif text-2xl italic text-stone-950">
             {mostCommonTag ?? "Not yet"}
           </p>
         </SoftCard>
@@ -312,11 +312,12 @@ export default function InsightsPage() {
                 key={entry.id}
                 className={`${surfaceStyles.panel} p-5`}
               >
-                <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase text-stone-400">
+                <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-stone-400">
                   <time dateTime={entry.createdAt}>
                     {formatDate(entry.createdAt)}
                   </time>
-                  <span>{entry.mood}</span>
+                  <span aria-hidden>—</span>
+                  <span className="capitalize">{entry.mood}</span>
                 </div>
                 <p className="mt-3 text-sm font-semibold leading-6 text-stone-900">
                   {entry.prompt}

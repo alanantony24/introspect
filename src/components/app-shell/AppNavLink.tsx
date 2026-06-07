@@ -53,7 +53,7 @@ export function AppNavLink({
       }`}
     >
       <span
-        className={`flex size-7 items-center justify-center rounded-full text-[0.7rem] transition ${
+        className={`flex size-7 items-center justify-center rounded-full font-mono text-[0.7rem] transition ${
           isActive
             ? "bg-[#e9efe4] text-[#4f6348]"
             : "bg-white/65 text-stone-400 group-hover:text-stone-600"
@@ -61,7 +61,7 @@ export function AppNavLink({
       >
         {marker}
       </span>
-      {label}
+      <span className={isActive ? "font-serif italic" : ""}>{label}</span>
     </Link>
   );
 }

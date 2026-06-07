@@ -5,7 +5,7 @@ import { SoftCard } from "@/components/ui/SoftCard";
 export default function DashboardPage() {
   return (
     <section className="space-y-6">
-      <SoftCard>
+      <SoftCard className="dot-grid-bg">
         <PageHeader
           eyebrow="Dashboard"
           title="Welcome back to a softer check-in."
